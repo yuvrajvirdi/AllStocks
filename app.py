@@ -34,5 +34,6 @@ def get_stock():
         data = get_data(stock_name)
         return render_template('card.html', data=data)
     return render_template('index.html')
+
 if __name__ == '__main__':
     app.run()
