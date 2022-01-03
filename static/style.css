@@ -40,9 +40,17 @@ form button i {
     font-size: 18px;
 }
 
+.info {
+    margin-top: 15px;
+}
+
 footer p {
     margin: 15px;
     font-size: 15px;
+}
+
+.error {
+    margin: 10px;
 }
 
 /* cards.html */
