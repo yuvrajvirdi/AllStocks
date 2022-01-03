@@ -5,27 +5,106 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllStocks</title>
-    <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/69f57f44fe.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <div class="app-name">
-        AllStocks <i class="far fa-chart-bar"></i>
+    <div class="app-header">
+        <div class="app-name">AllStocks</div>
+        <i class="far fa-chart-bar"></i>
     </div>
     <div class="card">
-        <div class="content">
-            Symbol: <h2>{{ data.symbol }}</h2>
-            Price: <h2>{{ data.price }}</h2>
-            Change: <h2>{{ data.change }}</h2>
-            Previous Close: <h2>{{ data.previous }}</h2>
-            Open: <h2>{{ data.open }}</h2>
-            Bid: <h2>{{ data.bid }}</h2>
-            Ask: <h2>{{ data.ask }}</h2>
-            Days's Range: <h2>{{ data.daysrange }}</h2>
-            Year's Range: <h2>{{ data.weekrange }}</h2>
-            Volume: <h2>{{ data.volume }}</h2>
-            Avg. 3 Month Volume: <h2>{{ data.avgmonthvolume }}</h2>
+        <div class="content-wrapper">
+            <div class="line">
+                <div class="name">
+                    Symbol:
+                </div>
+                <div class="nums">
+                    {{ data.symbol }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Price:
+                </div>
+                <div class="nums">
+                    {{ data.price }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Change:
+                </div>
+                <div class="nums">
+                    {{ data.change }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Previous Close:
+                </div>
+                <div class="nums">
+                    {{ data.previous}}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Open:
+                </div>
+                <div class="nums">
+                    {{ data.open }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Bid:
+                </div>
+                <div class="nums">
+                    {{ data.bid }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Ask:
+                </div>
+                <div class="nums">
+                    {{ data.ask }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Day's Range:
+                </div>
+                <div class="nums">
+                    {{ data.daysrange }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Year's Range:
+                </div>
+                <div class="nums">
+                    {{ data.weekrange }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Volume:
+                </div>
+                <div class="nums">
+                    {{ data.volume }}
+                </div>
+            </div>
+            <div class="line">
+                <div class="name">
+                    Avg. 3 Month Volume:
+                </div>
+                <div class="nums">
+                    {{ data.avgmonthvolume }}
+                </div>
+            </div>
         </div>
     </div>
+    <button class="reload-btn" onClick="window.location.reload()">Search Another Stock</button>
 </body>
 </html>
