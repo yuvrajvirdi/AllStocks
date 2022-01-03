@@ -5,16 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllStocks</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/YOUR_CODE_HERE.js" crossorigin="anonymous"></script>
-</head>
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://kit.fontawesome.com/69f57f44fe.js" crossorigin="anonymous"></script>
 <body>
-    <div class="app-name">
-        AllStocks <i class="far fa-chart-bar"></i>
+    <div class="app-header">
+        <div class="app-name">AllStocks</div> 
+        <i class="far fa-chart-bar"></i>
     </div>
-    <form action="{{ url_for('get_stock') }}" method="post">
-        <input type="text" id="stockname" name="sname" placeholder="Enter a Stock Symbol..."/>
-        <button type="submit">Search</button>
-    </form>
+    <div class="index-content">
+        <form action="{{ url_for('get_stock') }}" method="post">
+            <input type="text" id="stockname" name="sname" placeholder=" Stock Symbol..."/>
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+    <footer>
+        <p>
+            Yuvraj Virdi
+        </p>
+    </footer>
 </body>
 </html>
