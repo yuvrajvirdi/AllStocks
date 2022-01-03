@@ -34,7 +34,13 @@ def get_stock():
         stock_name = request.form.get('sname')
         data = get_data(stock_name)
         return render_template('card.html', data=data)
-    return render_template('index.html')
+    else:
+        return render_template('index.html')
+    
+@app.errorhandler(500)
+def handle_500(e):
+    error = 'Please enter valid inputs'
+    return render_template('index.html', error=error)
 
 if __name__ == '__main__':
     app.run()
