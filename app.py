@@ -14,6 +14,7 @@ def get_data(stock_name):
     soup = BeautifulSoup(r.text, 'html.parser')
     stock_data = {
         'symbol': stock_name,
+        'company': soup.find('h1', {'class':'D(ib) Fz(18px)'}).text,
         'price': soup.find('fin-streamer', {'class':'Fw(b) Fz(36px) Mb(-4px) D(ib)'}).text,
         'change': soup.find('div', {'class':'D(ib) Mend(20px)'}).find_all('span')[0].text,
         'previous': soup.find('td', {'class':'Ta(end) Fw(600) Lh(14px)', 'data-test':'PREV_CLOSE-value'}).text,
