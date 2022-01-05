@@ -48,6 +48,23 @@ def get_financials(stock_name):
     })
     return financial_data
 
+def get_holders(stock_name):
+    url = f'https://ca.finance.yahoo.com/quote/{stock_name}/holders?p={stock_name}'
+    headers = {
+        'User-agent': 'Mozilla/5.0',
+    }
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    a = soup.find('table',{'class':'W(100%) M(0) BdB Bdc($seperatorColor)'}).find('tbody').find_all('tr',{'class':'BdT Bdc($seperatorColor)'})[0].find('td',{'class':'Py(10px) Ta(start) Va(m)'}).text
+    b = soup.find('table',{'class':'W(100%) M(0) BdB Bdc($seperatorColor)'}).find('tbody').find_all('tr',{'class':'BdT Bdc($seperatorColor)'})[1].find('td',{'class':'Py(10px) Ta(start) Va(m)'}).text
+    c = '% of Shares Held by Other'
+    labels = [a,b,c]
+    e = float((soup.find('table',{'class':'W(100%) M(0) BdB Bdc($seperatorColor)'}).find('tbody').find_all('tr',{'class':'BdT Bdc($seperatorColor)'})[0].find('td',{'class':'Py(10px) Va(m) Fw(600) W(15%)'}).text).replace('%',''))
+    f = float((soup.find('table',{'class':'W(100%) M(0) BdB Bdc($seperatorColor)'}).find('tbody').find_all('tr',{'class':'BdT Bdc($seperatorColor)'})[1].find('td',{'class':'Py(10px) Va(m) Fw(600) W(15%)'}).text).replace('%',''))
+    g = round(100-e-f,2)
+    values = [e,f,g]
+    return [labels,values]
+
 def get_profile(stock_name):
     url = f'https://ca.finance.yahoo.com/quote/{stock_name}/profile?p={stock_name}'
     headers = {
@@ -57,6 +74,5 @@ def get_profile(stock_name):
     soup = BeautifulSoup(r.text, 'html.parser')
     profile_data = {
         
-
     }
     return profile_data
