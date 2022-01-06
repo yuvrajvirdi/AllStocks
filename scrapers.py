@@ -1,5 +1,9 @@
+from typing import ValuesView
 import requests
 from bs4 import BeautifulSoup
+from datetime import date
+
+from requests.api import get
 
 def get_data(stock_name):
     url = f'https://ca.finance.yahoo.com/quote/{stock_name}'
@@ -31,22 +35,27 @@ def get_financials(stock_name):
     }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, 'html.parser')
-    year1 = soup.find('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(ib) Fw(b)'}).find_all('span')[0].text
-    year2 = soup.find('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(ib) Fw(b) Bgc($lv1BgColor)'}).find_all('span')[0].text
-    year3 = soup.find('div', {'class':'D(tbr) C($primaryColor)'}).find_all('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(ib) Fw(b)'})[1].text
-    rev1 = soup.find('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(tbc)'}).find_all('span')[0].text
-    rev2 = soup.find('div',{'D(tbr) fi-row Bgc($hoverBgColor):h'}).find_all('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg Bgc($lv1BgColor) fi-row:h_Bgc($hoverBgColor) D(tbc)'})[1].text
-    rev3 = soup.find('div',{'D(tbr) fi-row Bgc($hoverBgColor):h'}).find_all('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(tbc)'})[1].text
-    rev1 = int(rev1.replace(',',''))
-    rev2 = int(rev2.replace(',',''))
-    rev3 = int(rev3.replace(',',''))
-    financial_data = dict({
-        "data": [{"type": "bar",
-                "x":[year1,year2,year3],
-                "y": [rev1,rev2,rev3]}],
-        "layout": {"title": {"text": "Revenue Over Fiscal Years"}}
-    })
-    return financial_data
+    labels = [
+        soup.find('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(ib) Fw(b)'}).find_all('span')[0].text,
+        soup.find('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(ib) Fw(b) Bgc($lv1BgColor)'}).find_all('span')[0].text,
+        soup.find('div', {'class':'D(tbr) C($primaryColor)'}).find_all('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(ib) Fw(b)'})[1].text,
+    ]
+    revenue = [
+        int((soup.find('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(tbc)'}).find_all('span')[0].text).replace(',','')),
+        int((soup.find('div',{'D(tbr) fi-row Bgc($hoverBgColor):h'}).find_all('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg Bgc($lv1BgColor) fi-row:h_Bgc($hoverBgColor) D(tbc)'})[1].text).replace(',','')),
+        int((soup.find('div',{'D(tbr) fi-row Bgc($hoverBgColor):h'}).find_all('div',{'class':'Ta(c) Py(6px) Bxz(bb) BdB Bdc($seperatorColor) Miw(120px) Miw(100px)--pnclg D(tbc)'})[1].text).replace(',',''))
+    ]
+    cost = [
+        int((soup.find_all('div',{'class':'D(tbr) fi-row Bgc($hoverBgColor):h'})[1].find_all('span')[2].text).replace(',','')),
+        int((soup.find_all('div',{'class':'D(tbr) fi-row Bgc($hoverBgColor):h'})[1].find_all('span')[3].text).replace(',','')),
+        int((soup.find_all('div',{'class':'D(tbr) fi-row Bgc($hoverBgColor):h'})[1].find_all('span')[4].text).replace(',',''))
+    ]
+    gross = [
+        revenue[0]-cost[0],
+        revenue[1]-cost[1],
+        revenue[2]-cost[2]
+    ]
+    return [labels,revenue,cost,gross]
 
 def get_holders(stock_name):
     url = f'https://ca.finance.yahoo.com/quote/{stock_name}/holders?p={stock_name}'
@@ -72,7 +81,29 @@ def get_profile(stock_name):
     }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, 'html.parser')
-    profile_data = {
-        
+    profile_data={
+        'logo': 'https://logo.clearbit.com/'+soup.find('p',{'D(ib) W(47.727%) Pend(40px)'}).find_all('a')[1].text,
+        'sector': soup.find('p',{'class':'D(ib) Va(t)'}).find_all('span')[1].text,
+        'industry': soup.find('p',{'class':'D(ib) Va(t)'}).find_all('span')[3].text,
+        'employees': soup.find('p',{'class':'D(ib) Va(t)'}).find_all('span')[5].text,
     }
     return profile_data
+
+def get_analytics(stock_name):
+    url = f'https://ca.finance.yahoo.com/quote/{stock_name}/analysis?p={stock_name}'
+    headers = {
+        'User-agent': 'Mozilla/5.0',
+    }
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    growth = {
+        'currentqtr':soup.find('td',{'data-reactid':'399'}).text,
+        'nextqtr':soup.find('td',{'data-reactid':'406'}).text,
+        'currentyr':soup.find('td',{'data-reactid':'413'}).text,
+        'nextyr':soup.find('td',{'data-reactid':'420'}).text,
+        'nextfiveyrs':soup.find('td',{'data-reactid':'427'}).text,
+        'pastfveyrs':soup.find('td',{'data-reactid':'434'}).text,
+    }
+    return growth
+
+
