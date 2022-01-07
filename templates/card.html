@@ -9,6 +9,8 @@
     <script src="../static/jquery-3.6.0.js"></script>
     <script>
         $(function(){
+            $("#revgraph").load('../static/revgraph.html')
+            $("#piegraph").load('../static/piegraph.html')
             $("#graph").load('../static/graph.html')
         });
     </script> 
@@ -19,96 +21,76 @@
         <div class="app-name">AllStocks</div>
         <i class="far fa-chart-bar"></i>
     </div>
-    <div class="card">
-        <div class="content-wrapper">
-            <div class="line">
-                <div class="nums">
-                    {{ data.company }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Price:
-                </div>
-                <div class="nums">
-                    {{ data.price }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Change:
-                </div>
-                <div class="nums">
-                    {{ data.change }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Previous Close:
-                </div>
-                <div class="nums">
-                    {{ data.previous}}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Open:
-                </div>
-                <div class="nums">
-                    {{ data.open }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Bid:
-                </div>
-                <div class="nums">
-                    {{ data.bid }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Ask:
-                </div>
-                <div class="nums">
-                    {{ data.ask }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Day's Range:
-                </div>
-                <div class="nums">
-                    {{ data.daysrange }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Year's Range:
-                </div>
-                <div class="nums">
-                    {{ data.weekrange }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Volume:
-                </div>
-                <div class="nums">
-                    {{ data.volume }}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    Avg. 3 Month Volume:
-                </div>
-                <div class="nums">
-                    {{ data.avgmonthvolume }}
+    <div class="cards">
+
+        <div class="card profile">
+            <div class="card-content">
+                <img src="{{ profile.logo }}" alt="" class="company-logo">
+                <div class="name">{{ data.company }}</div>
+                <div class="info-wrapper">
+                    <div class="sector">Sector: {{ profile.sector }}</div>
+                    <div class="industry">Industry: {{ profile.industry }}</div>
+                    <div class="employees">{{ profile.employees }} Employees</div>
                 </div>
             </div>
         </div>
+
+        <div class="card stock-info">
+            <div class="card-content">
+                <div class="price-wrapper">
+                    <div class="price">${{ data.price }}</div>
+                    <div class="change">{{ data.change }}</div>
+                    <div class="percent">{{ data.percent }}</div>
+                </div>
+                <div class="num-wrapper">
+                    <div class="num">Previous Close: {{ data.previous }}</div>
+                    <div class="num">Open: {{ data.open }}</div>
+                    <div class="num">Bid: {{ data.bid }}</div>
+                    <div class="num">Ask: {{ data.ask }}</div>
+                    <div class="num">Day's Range: {{ data.daysrange }}</div>
+                    <div class="num">Year's Range: {{ data.weekrange }}</div>
+                    <div class="num">Volume: {{ data.volume }} </div>
+                    <div class="num">Avg. 3 Month Volume: {{ data.avgmonthvolume }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card analytics">
+            <div class="card-content">
+                <div class="title">Growth Predictions</div>
+                <div class="growth-info-wrapper">
+                    <div class="growth">Current Quarter: {{ growth.currentqtr }}</div>
+                    <div class="growth">Next Quarter: {{ growth.nextqtr }}</div>
+                    <div class="growth">Current Year: {{ growth.currentyr }}</div>
+                    <div class="growth">Next Year: {{ growth.nextyr }}</div>
+                    <div class="growth">Next 5 Years: {{ growth.nextfiveyrs }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!--seperator to prevent wrapping-->
+        <div></div>
+        
+        <div class="graph revenue">
+            <div class="rev-wrapper">
+                <div id="revgraph"></div>
+            </div>
+        </div>
+
+        <div class="graph pie">
+            <div class="pie-wrapper">
+                <div id="piegraph"></div>
+            </div>
+        </div>  
+
+
+        <div class="candle">
+            <div class="candle-wrapper">
+                <div id="graph"></div>
+            </div>
+        </div>   
+        
     </div>
-    <div id="graph"></div>
     <button class="reload-btn" onClick="window.location.reload()">Search Another Stock</button>
 </body>
 </html>
