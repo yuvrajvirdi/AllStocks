@@ -24,7 +24,9 @@ body {
 }
 
 form input {
+    width:150px;
     font-size: 15px;
+    text-align: center;
     border-radius: 25px;
     border: none;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -56,25 +58,167 @@ footer p {
 /* cards.html */
 
 .card {
-    margin-top: 10px;
-    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align:top;
 }
 
-.card .content-wrapper{
+.graph {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.card-content {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 15px;
-    width: 350px;
-    margin: 0 auto;
     padding: 5px;
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+    margin:10px;
+}
+/* profile card starts */
+
+.company-logo {
+    margin-top: 15px;
+    width: 100px;
+    height: auto;
 }
 
-.name, .nums {
+.name {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.info-wrapper {
+    text-align: left;
+    margin-left: 23px
+}
+
+.sector,.industry,.employees {
+    margin-top: 10px
+}
+
+/* profile card ends */
+
+/* stock info card starts */
+
+.price-wrapper {
+    margin-top: 10px;
+}
+
+.price, .change, .percent {
     display: inline-block;
+}
+
+.price {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+#green {
+    color: green;
+}
+
+#red {
+    color: red
+}
+
+.num-wrapper {
+    text-align: left;
+    margin-left: 23px
+}
+
+.num {
+    margin-top: 10px;
+}
+
+/* stock info card ends */
+
+/* growth card starts */
+
+.title {
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+.growth-info-wrapper {
+    text-align: left;
+    margin-left: 23px
+}
+
+.growth {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+/* growth card ends */
+
+/* revenue card starts */
+.rev-wrapper {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 0 auto;
+    width: 470px;
+    height: 470px;
+    margin: 10px;
+}
+
+#revgraph {
+
+}
+/* revenue card ends */
+.pie-wrapper {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 0 auto;
+    width: 470px;
+    height: 470px;
+    margin: 10px;
+}
+
+#piegraph {
+ 
+}
+
+.candle-wrapper {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 0 auto;
+    width: 960px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#graph {
+    width: 945px;
 }
 
 .reload-btn {
     font-size: 15px;
     padding: 1.5px;
+    margin-bottom: 10px;
 }
 
+@media screen and (max-width:960px) {
+    .candle-wrapper {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        border-radius: 15px;
+        padding: 5px;
+        margin: 0 auto;
+        max-width: 75%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    #graph {
+        max-width: 100%;
+    }
+}
