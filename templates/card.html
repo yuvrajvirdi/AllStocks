@@ -39,8 +39,8 @@
             <div class="card-content">
                 <div class="price-wrapper">
                     <div class="price">${{ data.price }}</div>
-                    <div class="change">{{ data.change }}</div>
-                    <div class="percent">{{ data.percent }}</div>
+                    <div class="change" id="{{ colour }}">{{ data.change }}</div>
+                    <div class="percent" id="{{ colour }}">{{ data.percent }}</div>
                 </div>
                 <div class="num-wrapper">
                     <div class="num">Previous Close: {{ data.previous }}</div>
