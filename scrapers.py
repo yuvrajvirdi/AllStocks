@@ -1,9 +1,5 @@
-from typing import ValuesView
 import requests
 from bs4 import BeautifulSoup
-from datetime import date
-
-from requests.api import get
 
 def get_data(stock_name):
     url = f'https://ca.finance.yahoo.com/quote/{stock_name}'
@@ -17,6 +13,7 @@ def get_data(stock_name):
         'company': soup.find('h1', {'class':'D(ib) Fz(18px)'}).text,
         'price': soup.find('fin-streamer', {'class':'Fw(b) Fz(36px) Mb(-4px) D(ib)'}).text,
         'change': soup.find('div', {'class':'D(ib) Mend(20px)'}).find_all('span')[0].text,
+        'percent': soup.find('div', {'class':'D(ib) Mend(20px)'}).find_all('span')[1].text,
         'previous': soup.find('td', {'class':'Ta(end) Fw(600) Lh(14px)', 'data-test':'PREV_CLOSE-value'}).text,
         'open': soup.find('td', {'class':'Ta(end) Fw(600) Lh(14px)', 'data-test':'OPEN-value'}).text,
         'bid': soup.find('td', {'class':'Ta(end) Fw(600) Lh(14px)', 'data-test':'BID-value'}).text,
@@ -102,8 +99,6 @@ def get_analytics(stock_name):
         'currentyr':soup.find('td',{'data-reactid':'413'}).text,
         'nextyr':soup.find('td',{'data-reactid':'420'}).text,
         'nextfiveyrs':soup.find('td',{'data-reactid':'427'}).text,
-        'pastfveyrs':soup.find('td',{'data-reactid':'434'}).text,
+        'pastfiveyrs':soup.find('td',{'data-reactid':'434'}).text,
     }
     return growth
-
-
