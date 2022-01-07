@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from scrapers import get_data, get_financials, get_holders, get_profile, get_analytics
 from graph import make_graph, make_rev_graph, make_pie_graph
+from sign import check_sign
 
 
 app = Flask(__name__)
@@ -19,8 +20,10 @@ def get_stock():
         candle_graph = make_graph(stock_name)
         rev_graph = make_rev_graph(financial_data)
         pie_graph = make_pie_graph(holders_data)
+        
+        colour = check_sign(data)
 
-        return render_template('card.html', data=data, profile=profile, growth=growth)
+        return render_template('card.html', data=data, profile=profile, growth=growth, colour=colour)
 
     else:
         return render_template('index.html')
