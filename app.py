@@ -6,7 +6,11 @@ from sign import check_sign
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/get_stock', methods=['GET', 'POST'])
 def get_stock():
     if request.method == "POST":
         stock_name = request.form.get('stock')
