@@ -1,5 +1,5 @@
-def check_sign(data):
-    if '+' in data['percent']:
-        return 'green'
-    else:
+def check_sign(data,key):
+    if '-' in data[key]:
         return 'red'
+    else:
+        return 'green'
