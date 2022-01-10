@@ -25,7 +25,7 @@ def get_stock():
         rev_graph = make_rev_graph(financial_data)
         pie_graph = make_pie_graph(holders_data)
         
-        colour = check_sign(data)
+        colour = check_sign(data,'percent')
 
         return render_template('card.html', data=data, profile=profile, growth=growth, colour=colour)
 
