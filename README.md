@@ -42,6 +42,9 @@ Run the application by using the following command:
 ```bash
 python app.py
 ```
+# Next steps
+
+Planning to implement a chat room feature.
 
 # Demo
 
