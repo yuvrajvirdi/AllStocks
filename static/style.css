@@ -85,6 +85,12 @@ footer p {
     height: auto;
 }
 
+.apple-model {
+    margin-top: 50px;
+    width: 450px;
+    height: auto;
+}
+
 .name {
     font-size: 25px;
     font-weight: bold;
@@ -97,6 +103,10 @@ footer p {
 
 .sector,.industry,.employees {
     margin-top: 10px
+}
+
+.description {
+    font-size: 10px;
 }
 
 /* profile card ends */
