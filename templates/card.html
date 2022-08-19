@@ -35,6 +35,15 @@
             </div>
         </div>
 
+        <div class="card profile">
+            <div class="card-content">
+                <div class="name">Info</div>
+                <div class="info-wrapper">
+                    <div class="description">{{ profile.description }}</div>
+                </div>
+            </div>
+        </div>
+
         <div class="card stock-info">
             <div class="card-content">
                 <div class="price-wrapper">
@@ -68,8 +77,19 @@
             </div>
         </div>
 
+        
+
         <!--seperator to prevent wrapping-->
         <div></div>
+        {% if stock == "AAPL" %}
+            <div class="graph">
+                <div class="rev-wrapper">
+                
+                    <img src="../static/model_result.png" alt="" class="apple-model">
+                    
+                </div>
+            </div>
+        {% endif %}
         
         <div class="graph revenue">
             <div class="rev-wrapper">
@@ -83,6 +103,8 @@
             </div>
         </div>  
 
+        
+
 
         <div class="candle">
             <div class="candle-wrapper">
@@ -91,6 +113,6 @@
         </div>   
         
     </div>
-    <button class="reload-btn" onClick="window.location.reload()">Search Another Stock</button>
+    <button class="reload-btn" onClick="window.location.assign('http://127.0.0.1:5000/')">Search Another Stock</button>
 </body>
 </html>
