@@ -83,6 +83,7 @@ def get_profile(stock_name):
         'sector': soup.find('p',{'class':'D(ib) Va(t)'}).find_all('span')[1].text,
         'industry': soup.find('p',{'class':'D(ib) Va(t)'}).find_all('span')[3].text,
         'employees': soup.find('p',{'class':'D(ib) Va(t)'}).find_all('span')[5].text,
+        'description': soup.find('p',{'class': 'Mt(15px) Lh(1.6)'}).text
     }
     return profile_data
 
@@ -94,11 +95,12 @@ def get_analytics(stock_name):
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, 'html.parser')
     growth = {
-        'currentqtr':soup.find('td',{'data-reactid':'399'}).text,
-        'nextqtr':soup.find('td',{'data-reactid':'406'}).text,
-        'currentyr':soup.find('td',{'data-reactid':'413'}).text,
-        'nextyr':soup.find('td',{'data-reactid':'420'}).text,
-        'nextfiveyrs':soup.find('td',{'data-reactid':'427'}).text,
-        'pastfiveyrs':soup.find('td',{'data-reactid':'434'}).text,
+        'currentqtr':soup.find_all('td', {'class': 'Ta(end) Py(10px)'})[0].text,
+        'nextqtr':soup.find_all('td', {'class': 'Ta(end) Py(10px)'})[4].text,
+        'currentyr':soup.find_all('td', {'class': 'Ta(end) Py(10px)'})[8].text,
+        'nextyr':soup.find_all('td', {'class': 'Ta(end) Py(10px)'})[12].text,
+        'nextfiveyrs':soup.find_all('td', {'class': 'Ta(end) Py(10px)'})[16].text,
+        'pastfiveyrs':soup.find_all('td', {'class': 'Ta(end) Py(10px)'})[20].text,
     }
     return growth
+
