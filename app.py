@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from scrapers import get_data, get_financials, get_holders, get_profile, get_analytics
 from graph import make_graph, make_rev_graph, make_pie_graph
 from sign import check_sign
-
+from summarizer import Summarizer
 
 app = Flask(__name__)
 
@@ -21,13 +21,16 @@ def get_stock():
         profile = get_profile(stock_name)
         growth = get_analytics(stock_name)
 
+        summarizer = Summarizer()
+        profile['description'] = summarizer.spacy_summarize(profile['description'])
+    
         candle_graph = make_graph(stock_name)
         rev_graph = make_rev_graph(financial_data)
         pie_graph = make_pie_graph(holders_data)
         
         colour = check_sign(data,'percent')
 
-        return render_template('card.html', data=data, profile=profile, growth=growth, colour=colour)
+        return render_template('card.html', data=data, profile=profile, growth=growth, colour=colour, stock=stock_name)
 
     else:
         return render_template('index.html')
@@ -39,3 +42,4 @@ def handle_500(e):
 
 if __name__ == '__main__':
     app.run()
+
